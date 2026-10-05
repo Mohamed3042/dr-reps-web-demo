@@ -1,35 +1,40 @@
-// Storefront motion and conveniences. Every page works without JavaScript; this layers the cinema on top.
+// Storefront conveniences. Every page works without JavaScript; this adds sliders, quick add and small helpers.
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const step = (el, i) => el.scrollTo({ left: i * el.clientWidth, behavior: reduced ? 'auto' : 'smooth' });
+const at = el => Math.round(el.scrollLeft / el.clientWidth);
 
-// Header: transparent over the home campaign, solid once you scroll.
-const hdr = document.querySelector('[data-hdr]');
-const onScroll = () => hdr?.classList.toggle('solid', scrollY > 40);
-addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+// Home banner slider: arrows, dots, autoplay (paused while hovered or hidden).
+for (const hero of document.querySelectorAll('[data-hero]')) {
+  const track = hero.querySelector('.hero-track'), dots = [...hero.querySelectorAll('[data-hero-go]')], n = dots.length;
+  if (!n) continue;
+  const go = i => step(track, (i + n) % n);
+  hero.addEventListener('click', e => {
+    const b = e.target.closest('[data-hero-step], [data-hero-go]');
+    if (b) go(b.dataset.heroGo != null ? +b.dataset.heroGo : at(track) + +b.dataset.heroStep);
+  });
+  track.addEventListener('scroll', () => dots.forEach((d, i) => d.classList.toggle('on', i === at(track))), { passive: true });
+  if (!reduced) setInterval(() => { if (!document.hidden && !hero.matches(':hover')) go(at(track) + 1); }, 5500);
+}
 
-// Reveal blocks as they enter; campaign slides get their slow zoom + caption rise.
-const io = 'IntersectionObserver' in window && new IntersectionObserver(entries => {
-  for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-}, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-document.querySelectorAll('.reveal, [data-slide]').forEach(el => {
-  if (el.classList.contains('reveal')) el.style.setProperty('--d', `${Math.min([...el.parentElement.children].indexOf(el) % 4, 3) * 0.08}s`);
-  io && !reduced ? io.observe(el) : el.classList.add('in');
-});
-
-// Product photos fade in once decoded.
-const ready = img => img.classList.add('ok');
-document.querySelectorAll('.tile-img img').forEach(img => img.complete && img.naturalWidth ? ready(img) : img.addEventListener('load', () => ready(img), { once: true }));
-
-// Shared-element page transition: the tapped photo becomes the product page's hero photo.
+// Product rails: arrow buttons scroll by most of a screen.
 document.addEventListener('click', e => {
-  const link = e.target.closest('.tile-link');
-  if (!link || e.metaKey || e.ctrlKey) return;
-  const img = link.querySelector('.tile-img img, .tile-img .ph');
-  if (img) img.style.viewTransitionName = 'pimg';
+  const b = e.target.closest('[data-rail-step]');
+  if (!b) return;
+  const t = b.parentElement.querySelector('.rail-track');
+  t.scrollBy({ left: +b.dataset.railStep * t.clientWidth * 0.85, behavior: reduced ? 'auto' : 'smooth' });
 });
-addEventListener('pageshow', () => document.querySelectorAll('[style*="view-transition-name"]').forEach(el => el.style.viewTransitionName = ''));
 
-// Grid density (2 / 4 / 6 per row), remembered per visitor.
+// Product gallery: thumbnails and dots follow the main photo strip.
+for (const g of document.querySelectorAll('[data-gallery]')) {
+  const strip = g.querySelector('.pdp-imgs'), marks = [...g.querySelectorAll('.pdp-dots i, [data-show]')];
+  g.addEventListener('click', e => { const b = e.target.closest('[data-show]'); if (b) step(strip, +b.dataset.show); });
+  if (marks.length) strip.addEventListener('scroll', () => {
+    const i = at(strip);
+    marks.forEach(m => m.classList.toggle('on', +(m.dataset.show ?? [...m.parentElement.children].indexOf(m)) === i));
+  }, { passive: true });
+}
+
+// Grid density on the shop page (4 or 6 per row), remembered per visitor.
 const tiles = document.querySelector('.shop-head ~ .block [data-tiles]');
 const density = document.querySelector('.density');
 function setCols(n) {
@@ -40,17 +45,7 @@ function setCols(n) {
   try { localStorage.drCols = n; } catch {}
 }
 density?.addEventListener('click', e => { const b = e.target.closest('[data-cols]'); if (b) setCols(b.dataset.cols); });
-try { if (localStorage.drCols) setCols(localStorage.drCols); } catch {}
-
-// Category index: a photo peeks out and follows the cursor.
-const peek = document.querySelector('[data-peek]');
-if (peek && matchMedia('(hover: hover)').matches) {
-  for (const row of document.querySelectorAll('.index-row[data-preview]')) {
-    row.addEventListener('pointerenter', () => { peek.src = row.dataset.preview; peek.classList.add('on'); });
-    row.addEventListener('pointerleave', () => peek.classList.remove('on'));
-  }
-  addEventListener('pointermove', e => { peek.style.left = `${e.clientX + 140}px`; peek.style.top = `${e.clientY}px`; }, { passive: true });
-}
+try { if (['4', '6'].includes(localStorage.drCols)) setCols(localStorage.drCols); } catch {}
 
 // Submit selects/inputs marked data-autosubmit as soon as they change.
 document.addEventListener('change', e => { if (e.target.matches('[data-autosubmit]')) e.target.form.requestSubmit(); });
@@ -63,17 +58,9 @@ document.addEventListener('click', e => {
   input.value = Math.min(999, Math.max(1, (parseInt(input.value) || 1) + Number(b.dataset.step)));
 });
 
-// Mobile product gallery: dots follow the swipe.
-for (const g of document.querySelectorAll('[data-gallery]')) {
-  const strip = g.querySelector('.pdp-imgs'), dots = [...g.querySelectorAll('.pdp-dots i')];
-  if (dots.length) strip.addEventListener('scroll', () => {
-    const i = Math.round(strip.scrollLeft / strip.clientWidth);
-    dots.forEach((d, j) => d.classList.toggle('on', i === j));
-  }, { passive: true });
-}
-
-// Close the mobile menu after picking a link.
+// Close the mobile menu after picking a link; close an open size picker when clicking elsewhere.
 document.querySelectorAll('.sheet a').forEach(a => a.addEventListener('click', () => a.closest('details').open = false));
+document.addEventListener('click', e => document.querySelectorAll('.qa-sizes[open]').forEach(d => d.contains(e.target) || d.removeAttribute('open')));
 
 // Add to bag without leaving the page (quick add on tiles, and the product page form).
 const toastEl = document.querySelector('[data-toast]');
@@ -100,9 +87,10 @@ document.addEventListener('submit', async e => {
   try {
     const r = await fetch(f.action, { method: 'POST', body, headers: { accept: 'application/json' } });
     const d = await r.json();
-    if (!r.ok) throw new Error(d.error || 'Could not add that piece.');
+    if (!r.ok) throw new Error(d.error || 'Could not add that item.');
     const count = document.querySelector('[data-bag-count]');
     count.textContent = d.count;
+    count.hidden = false;
     count.classList.remove('bump'); void count.offsetWidth; count.classList.add('bump');
     f.querySelector('details')?.removeAttribute('open');
     toast({ title: 'Added to your bag', sub: `${d.added.name}${d.added.size ? ` · ${d.added.size}` : ''}`, image: d.added.image, action: { href: '/bag', label: 'View bag' } });

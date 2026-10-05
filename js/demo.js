@@ -65,19 +65,22 @@
     const sellerSelect = document.querySelector('[data-preview] [data-seller]');
     if (sellerSelect) [...sellerSelect.options].slice(1).forEach(o => o.remove());
 
-    // Shop: category, search and sort.
+    // Shop: category, condition, search and sort.
     const cards = [...document.querySelectorAll('.shop-head ~ .block .tile')];
     if (cards.length) {
-      const cat = params.get('cat') || '';
-      const n = hideUnless(cards, c => (!cat || c.dataset.cat === cat) && (!term || c.dataset.q.includes(term)));
+      const cat = params.get('cat') || '', cond = params.get('cond') || '';
+      const n = hideUnless(cards, c => (!cat || c.dataset.cat === cat) && (!cond || c.dataset.cond === cond) && (!term || c.dataset.q.includes(term)));
       if (params.get('sort') === 'az') {
         const grid = cards[0].parentElement;
         cards.sort((a, b) => a.querySelector('.tile-name').textContent.localeCompare(b.querySelector('.tile-name').textContent)).forEach(c => grid.append(c));
       }
       document.querySelectorAll('.cat-nav a').forEach(a => a.classList.toggle('on', (new URL(a.href).searchParams.get('cat') || '') === cat));
-      const h1 = document.querySelector('.shop-title'); if (cat && h1) h1.textContent = cat;
-      const count = document.querySelector('[data-count]'); if (count) count.textContent = `${n} ${n === 1 ? 'piece' : 'pieces'}`;
-      const input = document.querySelector('#q'); if (input) input.value = params.get('q') || '';
+      const h1 = document.querySelector('.shop-title'); if (h1) h1.textContent = cat || cond || (term ? `Results for “${params.get('q')}”` : h1.textContent);
+      const count = document.querySelector('[data-count]'); if (count) count.textContent = `${n} ${n === 1 ? 'item' : 'items'}`;
+      document.querySelectorAll('.filters select').forEach(s => s.value = params.get(s.name) || s.options[0].value);
+      document.querySelectorAll('input[name=q]').forEach(i => i.value = params.get('q') || '');
+      const filters = document.querySelector('.filters'); // keep the search when a filter changes
+      if (filters && params.get('q')) filters.prepend(Object.assign(document.createElement('input'), { type: 'hidden', name: 'q', value: params.get('q') }));
       if (!n) cards[0].parentElement.insertAdjacentHTML('afterend', '<p class="demo-empty">Nothing matches that search in the demo catalog.</p>');
     }
 

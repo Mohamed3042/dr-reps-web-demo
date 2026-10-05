@@ -1,4 +1,4 @@
-// Photo studio: upload → background removal → product placed on the brand backdrop or an AI scene → uploaded to R2.
+// Photo studio: upload → background removal → product placed on the light studio backdrop or an AI scene → uploaded to R2.
 // Background removal: Cloudflare Images (BiRefNet, when the IMAGES binding is connected) first,
 // then an in-browser model (ormbg, Apache-2.0, 44 MB int8, CPU) as the free fallback.
 // The original is always kept, and product pixels are never regenerated: only the background changes.
@@ -70,16 +70,13 @@ function brightness(cut) {
   for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 200) { sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2]; n++; }
   return n ? sum / n / 255 : 0.5;
 }
-// Brand backdrop; dark products get a lifted centre and a stronger lilac glow so they don't sink into the background.
-function backdrop(x, dark) {
-  const g = x.createRadialGradient(W / 2, H * 0.42, 0, W / 2, H * 0.48, H * 0.7);
-  g.addColorStop(0, dark ? '#58585c' : '#3b3b3b'); g.addColorStop(0.55, dark ? '#2e2e31' : '#232325'); g.addColorStop(1, '#141415');
+// Light grey studio backdrop, like the store's product grid; very light products get a slightly deeper grey so they stand out.
+function backdrop(x, light) {
+  const g = x.createRadialGradient(W / 2, H * 0.42, 0, W / 2, H * 0.48, H * 0.75);
+  g.addColorStop(0, light ? '#ededf0' : '#fbfbfb'); g.addColorStop(1, light ? '#d9d9de' : '#e9e9ec');
   x.fillStyle = g; x.fillRect(0, 0, W, H);
-  const glow = x.createRadialGradient(W / 2, H * 0.45, 0, W / 2, H * 0.45, W * 0.55);
-  glow.addColorStop(0, `rgba(199,161,206,${dark ? 0.26 : 0.15})`); glow.addColorStop(1, 'rgba(199,161,206,0)');
-  x.fillStyle = glow; x.fillRect(0, 0, W, H);
   const floor = x.createLinearGradient(0, H * 0.8, 0, H);
-  floor.addColorStop(0, 'rgba(0,0,0,0)'); floor.addColorStop(1, 'rgba(0,0,0,.38)');
+  floor.addColorStop(0, 'rgba(0,0,0,0)'); floor.addColorStop(1, 'rgba(0,0,0,.05)');
   x.fillStyle = floor; x.fillRect(0, H * 0.8, W, H * 0.2);
 }
 function drawCover(x, img) {
@@ -89,16 +86,16 @@ function drawCover(x, img) {
 // Portrait 4:5 frame, like the store's product grid.
 function compose(cut, scene) {
   const c = canvas(W, H), x = c.getContext('2d');
-  scene ? drawCover(x, scene) : backdrop(x, brightness(cut) < 0.3);
+  scene ? drawCover(x, scene) : backdrop(x, brightness(cut) > 0.82);
   const k = Math.min(W * 0.78 / cut.width, H * 0.6 / cut.height), w = cut.width * k, h = cut.height * k;
   const left = (W - w) / 2, floor = H * 0.8, top = floor - h;
   // Contact shadow: a soft ellipse under the product (radial gradient, works in every browser).
   const rx = w * 0.5, ry = Math.max(18, h * 0.045);
   x.save(); x.translate(W / 2, floor - ry * 0.2); x.scale(1, ry / rx);
   const sh = x.createRadialGradient(0, 0, 0, 0, 0, rx);
-  sh.addColorStop(0, 'rgba(0,0,0,.6)'); sh.addColorStop(1, 'rgba(0,0,0,0)');
+  sh.addColorStop(0, 'rgba(0,0,0,.32)'); sh.addColorStop(1, 'rgba(0,0,0,0)');
   x.fillStyle = sh; x.fillRect(-rx, -rx, rx * 2, rx * 2); x.restore();
-  x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 50; x.shadowOffsetY = 22;
+  x.save(); x.shadowColor = 'rgba(0,0,0,.16)'; x.shadowBlur = 44; x.shadowOffsetY = 18;
   x.drawImage(cut, left, top, w, h); x.restore();
   return c;
 }
