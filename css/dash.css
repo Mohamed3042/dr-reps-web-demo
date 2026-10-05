@@ -299,3 +299,12 @@ tr.dim{opacity:.5}
 .device.android iframe{width:412px;height:857px}
 .device.android .dv-home{height:24px;background:#0b0b0c;border-radius:0 0 36px 36px}
 .device.android .dv-home::after{content:"";position:absolute;left:50%;bottom:9px;width:108px;height:4px;border-radius:2px;background:#e8eaed;transform:translateX(-50%)}
+
+/* home campaign slots */
+.camp{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.camp-slot{display:grid;gap:8px;align-content:start}
+.camp-img{aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:var(--surface-2);display:grid;place-items:center;color:var(--text-3);font-size:13px;border:1px dashed var(--line-2)}
+.camp-img img{width:100%;height:100%;object-fit:cover}
+.camp-img.busy{opacity:.5}
+.camp-btns{display:flex;gap:12px;align-items:center}
+.camp-slot input{font-size:14px;padding:9px 12px}

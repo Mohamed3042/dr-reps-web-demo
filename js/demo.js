@@ -5,7 +5,7 @@
   const term = (params.get('q') || '').toLowerCase().trim();
 
   const css = document.createElement('style');
-  css.textContent = '.demo-bar{position:fixed;z-index:70;left:50%;bottom:16px;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);background:#c7a1ce;color:#111;font:600 13px/1.45 Tomorrow,system-ui,sans-serif;text-align:center;padding:9px 18px;border-radius:999px;box-shadow:0 12px 32px -8px rgba(0,0,0,.6)}' +
+  css.textContent = '@media (max-width:640px){.demo-bar{font-size:11px!important;padding:7px 14px!important;bottom:10px!important}}@media (max-width:860px){body:has(.buy-bar) .demo-bar{bottom:78px!important}}.demo-bar{position:fixed;z-index:70;left:50%;bottom:16px;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);background:#c7a1ce;color:#111;font:600 13px/1.45 Tomorrow,system-ui,sans-serif;text-align:center;padding:9px 18px;border-radius:999px;box-shadow:0 12px 32px -8px rgba(0,0,0,.6)}' +
     '.demo-bar a{color:#111;text-decoration:underline}.demo-hidden{display:none!important}.demo-empty{padding:40px 0;text-align:center;color:#a1a1a6}';
   document.head.append(css);
 
@@ -53,7 +53,7 @@
     if (window.top === window) { // no banner inside the device preview frames
       const bar = document.createElement('div');
       bar.className = 'demo-bar';
-      bar.append('Preview with demo data · saving is off');
+      bar.append('Demo data · saving off');
       if (!location.pathname.endsWith('/admin/preview')) {
         const a = Object.assign(document.createElement('a'), { href: `${window.DEMO?.base || ''}/admin/preview`, textContent: 'Phone & seller view' });
         bar.append(' · ', a);
@@ -66,17 +66,17 @@
     if (sellerSelect) [...sellerSelect.options].slice(1).forEach(o => o.remove());
 
     // Shop: category, search and sort.
-    const cards = [...document.querySelectorAll('.page-head ~ .wrap .grid .prod')];
+    const cards = [...document.querySelectorAll('.shop-head ~ .block .tile')];
     if (cards.length) {
       const cat = params.get('cat') || '';
       const n = hideUnless(cards, c => (!cat || c.dataset.cat === cat) && (!term || c.dataset.q.includes(term)));
       if (params.get('sort') === 'az') {
         const grid = cards[0].parentElement;
-        cards.sort((a, b) => a.querySelector('h3').textContent.localeCompare(b.querySelector('h3').textContent)).forEach(c => grid.append(c));
+        cards.sort((a, b) => a.querySelector('.tile-name').textContent.localeCompare(b.querySelector('.tile-name').textContent)).forEach(c => grid.append(c));
       }
-      document.querySelectorAll('.chips .chip').forEach(ch => ch.classList.toggle('on', (new URL(ch.href).searchParams.get('cat') || '') === cat));
-      const h1 = document.querySelector('.page-head .h1'); if (cat && h1) h1.textContent = cat;
-      const sub = document.querySelector('.page-head > p.muted'); if (sub) sub.textContent = `${n} ${n === 1 ? 'item' : 'items'}${term ? ` matching “${term}”` : ''}. Every price is quoted on request.`;
+      document.querySelectorAll('.cat-nav a').forEach(a => a.classList.toggle('on', (new URL(a.href).searchParams.get('cat') || '') === cat));
+      const h1 = document.querySelector('.shop-title'); if (cat && h1) h1.textContent = cat;
+      const count = document.querySelector('[data-count]'); if (count) count.textContent = `${n} ${n === 1 ? 'piece' : 'pieces'}`;
       const input = document.querySelector('#q'); if (input) input.value = params.get('q') || '';
       if (!n) cards[0].parentElement.insertAdjacentHTML('afterend', '<p class="demo-empty">Nothing matches that search in the demo catalog.</p>');
     }

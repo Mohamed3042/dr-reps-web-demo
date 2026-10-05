@@ -77,6 +77,32 @@ for (const box of document.querySelectorAll('[data-avatar]')) {
   });
 }
 
+// Wide image upload (home campaign slides): resized to at most 2400 px wide, kept in proportion.
+for (const box of document.querySelectorAll('[data-upload]')) {
+  const file = box.querySelector('[data-upload-file]'), value = box.querySelector('[data-upload-value]'), view = box.querySelector('[data-upload-view]');
+  file.addEventListener('change', async () => {
+    const f = file.files[0];
+    if (!f) return;
+    view.classList.add('busy');
+    try {
+      const bmp = await createImageBitmap(f, { imageOrientation: 'from-image' });
+      const k = Math.min(1, 2400 / bmp.width), c = document.createElement('canvas');
+      c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+      c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+      const url = await uploadBlob(file.dataset.endpoint, await toBlob(c, 'image/webp', 0.86), 'full', 'campaign.webp');
+      value.value = url;
+      view.replaceChildren(Object.assign(new Image(), { src: url, alt: '' }));
+      toast('Photo ready. Save settings to publish it.');
+    } catch (err) { toast(err.message, true); }
+    view.classList.remove('busy');
+    file.value = '';
+  });
+  box.querySelector('[data-upload-clear]')?.addEventListener('click', () => {
+    value.value = '';
+    view.replaceChildren(Object.assign(document.createElement('span'), { textContent: 'Removed. Save to apply.' }));
+  });
+}
+
 // AI scene generation (settings page).
 const sceneForm = document.querySelector('[data-scene-form]');
 sceneForm?.addEventListener('submit', async e => {

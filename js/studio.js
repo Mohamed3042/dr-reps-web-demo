@@ -4,7 +4,7 @@
 // The original is always kept, and product pixels are never regenerated: only the background changes.
 const TRANSFORMERS = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1';
 const MODEL = 'onnx-community/ormbg-ONNX';
-const SIZE = 1600, THUMB = 640, MAX_PHOTOS = 12;
+const W = 1280, H = 1600, THUMB = 640, MAX_PHOTOS = 12; // 4:5 portrait, like the store grid
 
 const ICON = {
   star: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/>',
@@ -72,28 +72,29 @@ function brightness(cut) {
 }
 // Brand backdrop; dark products get a lifted centre and a stronger lilac glow so they don't sink into the background.
 function backdrop(x, dark) {
-  const g = x.createRadialGradient(SIZE / 2, SIZE * 0.4, 0, SIZE / 2, SIZE * 0.46, SIZE * 0.78);
+  const g = x.createRadialGradient(W / 2, H * 0.42, 0, W / 2, H * 0.48, H * 0.7);
   g.addColorStop(0, dark ? '#58585c' : '#3b3b3b'); g.addColorStop(0.55, dark ? '#2e2e31' : '#232325'); g.addColorStop(1, '#141415');
-  x.fillStyle = g; x.fillRect(0, 0, SIZE, SIZE);
-  const glow = x.createRadialGradient(SIZE / 2, SIZE * 0.44, 0, SIZE / 2, SIZE * 0.44, SIZE * 0.44);
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+  const glow = x.createRadialGradient(W / 2, H * 0.45, 0, W / 2, H * 0.45, W * 0.55);
   glow.addColorStop(0, `rgba(199,161,206,${dark ? 0.26 : 0.15})`); glow.addColorStop(1, 'rgba(199,161,206,0)');
-  x.fillStyle = glow; x.fillRect(0, 0, SIZE, SIZE);
-  const floor = x.createLinearGradient(0, SIZE * 0.8, 0, SIZE);
+  x.fillStyle = glow; x.fillRect(0, 0, W, H);
+  const floor = x.createLinearGradient(0, H * 0.8, 0, H);
   floor.addColorStop(0, 'rgba(0,0,0,0)'); floor.addColorStop(1, 'rgba(0,0,0,.38)');
-  x.fillStyle = floor; x.fillRect(0, SIZE * 0.8, SIZE, SIZE * 0.2);
+  x.fillStyle = floor; x.fillRect(0, H * 0.8, W, H * 0.2);
 }
 function drawCover(x, img) {
-  const k = Math.max(SIZE / img.width, SIZE / img.height), w = img.width * k, h = img.height * k;
-  x.drawImage(img, (SIZE - w) / 2, (SIZE - h) / 2, w, h);
+  const k = Math.max(W / img.width, H / img.height), w = img.width * k, h = img.height * k;
+  x.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
 }
+// Portrait 4:5 frame, like the store's product grid.
 function compose(cut, scene) {
-  const c = canvas(SIZE, SIZE), x = c.getContext('2d');
+  const c = canvas(W, H), x = c.getContext('2d');
   scene ? drawCover(x, scene) : backdrop(x, brightness(cut) < 0.3);
-  const k = Math.min(SIZE * 0.74 / cut.width, SIZE * 0.66 / cut.height), w = cut.width * k, h = cut.height * k;
-  const left = (SIZE - w) / 2, floor = SIZE * 0.84, top = floor - h;
+  const k = Math.min(W * 0.78 / cut.width, H * 0.6 / cut.height), w = cut.width * k, h = cut.height * k;
+  const left = (W - w) / 2, floor = H * 0.8, top = floor - h;
   // Contact shadow: a soft ellipse under the product (radial gradient, works in every browser).
   const rx = w * 0.5, ry = Math.max(18, h * 0.045);
-  x.save(); x.translate(SIZE / 2, floor - ry * 0.2); x.scale(1, ry / rx);
+  x.save(); x.translate(W / 2, floor - ry * 0.2); x.scale(1, ry / rx);
   const sh = x.createRadialGradient(0, 0, 0, 0, 0, rx);
   sh.addColorStop(0, 'rgba(0,0,0,.6)'); sh.addColorStop(1, 'rgba(0,0,0,0)');
   x.fillStyle = sh; x.fillRect(-rx, -rx, rx * 2, rx * 2); x.restore();
@@ -101,9 +102,9 @@ function compose(cut, scene) {
   x.drawImage(cut, left, top, w, h); x.restore();
   return c;
 }
-function squareCrop(src) {
-  const c = canvas(SIZE, SIZE), x = c.getContext('2d');
-  x.fillStyle = '#151516'; x.fillRect(0, 0, SIZE, SIZE);
+function coverCrop(src) {
+  const c = canvas(W, H), x = c.getContext('2d');
+  x.fillStyle = '#151516'; x.fillRect(0, 0, W, H);
   drawCover(x, src);
   return c;
 }
@@ -220,7 +221,7 @@ export function init(root, { toast, uploadBlob, toBlob }) {
       try { cut = await cutout(src, p); if (!cut) toast('Couldn’t find a clear product in one photo, so it was kept as is.'); }
       catch (err) { console.warn(err); toast(`Clean-up isn’t available in this browser right now (${err.message}). Kept the original.`, true); }
     }
-    await finish(p, cut ? { full: compose(cut, await scene()), cut, mode: 'clean' } : { full: squareCrop(src), mode: 'original' });
+    await finish(p, cut ? { full: compose(cut, await scene()), cut, mode: 'clean' } : { full: coverCrop(src), mode: 'original' });
     URL.revokeObjectURL(p.preview);
   }
   async function reclean(p) {
@@ -228,7 +229,7 @@ export function init(root, { toast, uploadBlob, toBlob }) {
     if (!cut) throw new Error('Couldn’t find a clear product in this photo.');
     await finish(p, { full: compose(cut, await scene()), cut, mode: 'clean' });
   }
-  async function useOriginal(p) { await finish(p, { full: squareCrop(await loadImage(p.orig)), mode: 'original' }); }
+  async function useOriginal(p) { await finish(p, { full: coverCrop(await loadImage(p.orig)), mode: 'original' }); }
   async function replace(p) {
     busyMsg(p, 'Placing on the backdrop…');
     await finish(p, { full: compose(await loadImage(p.cut), await scene()), mode: 'clean' });
