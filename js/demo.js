@@ -50,10 +50,20 @@
   const text = el => el.textContent.toLowerCase();
 
   document.addEventListener('DOMContentLoaded', () => {
-    const bar = document.createElement('div');
-    bar.className = 'demo-bar';
-    bar.textContent = 'Preview with demo data · saving is off';
-    document.body.prepend(bar);
+    if (window.top === window) { // no banner inside the device preview frames
+      const bar = document.createElement('div');
+      bar.className = 'demo-bar';
+      bar.append('Preview with demo data · saving is off');
+      if (!location.pathname.endsWith('/admin/preview')) {
+        const a = Object.assign(document.createElement('a'), { href: `${window.DEMO?.base || ''}/admin/preview`, textContent: 'Phone & seller view' });
+        bar.append(' · ', a);
+      }
+      document.body.prepend(bar);
+    }
+
+    // Device preview: every seller option points at the one exported seller panel, so keep just the first.
+    const sellerSelect = document.querySelector('[data-preview] [data-seller]');
+    if (sellerSelect) [...sellerSelect.options].slice(1).forEach(o => o.remove());
 
     // Shop: category, search and sort.
     const cards = [...document.querySelectorAll('.page-head ~ .wrap .grid .prod')];

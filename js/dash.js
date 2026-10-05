@@ -96,5 +96,34 @@ sceneForm?.addEventListener('submit', async e => {
   }
 });
 
+// Device preview: customer or seller view, framed as desktop / iPhone / Android and scaled to fit the screen.
+const pv = document.querySelector('[data-preview]');
+if (pv) {
+  const frame = pv.querySelector('[data-frame]'), iframe = pv.querySelector('[data-iframe]'), stage = pv.querySelector('[data-stage]');
+  const sellerSelect = pv.querySelector('[data-seller]'), urlEl = pv.querySelector('[data-url]'), openLink = document.querySelector('[data-preview-open]');
+  let view = 'customer';
+  const target = () => view === 'customer' ? pv.querySelector('[data-view=customer]').dataset.src : sellerSelect.value;
+  const fit = () => {
+    frame.style.transform = '';
+    const pad = 56, room = stage.clientWidth - 32, tall = innerHeight - stage.getBoundingClientRect().top - pad - 24;
+    const k = Math.min(1, room / frame.offsetWidth, Math.max(0.4, tall / frame.offsetHeight));
+    frame.style.transform = `scale(${k})`;
+    stage.style.height = `${Math.ceil(frame.offsetHeight * k) + pad}px`;
+  };
+  pv.addEventListener('click', e => {
+    const b = e.target.closest('button[data-view], button[data-device]');
+    if (!b || b.disabled) return;
+    b.parentElement.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    if (b.dataset.view) { view = b.dataset.view; sellerSelect.hidden = view !== 'seller'; iframe.src = target(); }
+    if (b.dataset.device) { frame.className = `device ${b.dataset.device}`; fit(); }
+  });
+  sellerSelect.addEventListener('change', () => { iframe.src = target(); });
+  iframe.addEventListener('load', () => {
+    try { const l = iframe.contentWindow.location; urlEl.textContent = l.host + l.pathname; openLink.href = l.href; } catch {}
+  });
+  addEventListener('resize', fit);
+  fit();
+}
+
 const studio = document.querySelector('[data-studio]');
 if (studio) import('/dr-reps-web-demo/js/studio.js').then(m => m.init(studio, { toast, uploadBlob, toBlob }));
