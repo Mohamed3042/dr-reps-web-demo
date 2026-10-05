@@ -43,9 +43,12 @@ if (deal) {
   const fmt = v => v == null || Number.isNaN(v) ? '—' : `${v.toLocaleString('en-US', { maximumFractionDigits: 2 })}${deal.dataset.cur ? ' ' + deal.dataset.cur : ''}`;
   const n = v => { const x = parseFloat(String(v).replace(/[^\d.-]/g, '')); return Number.isFinite(x) ? x : null; };
   const calc = () => {
-    const sale = n($('sale').value), cost = n($('cost').value) ?? 0, ref = $('ref');
+    const price = n($('sale').value), cost = n($('cost').value) ?? 0, ref = $('ref');
     const opt = ref.selectedOptions[0], rate = n($('rate').value) ?? n(opt?.dataset.rate) ?? n($('rate').dataset.defaultRate) ?? 0;
     $('rate').placeholder = ref.value ? rate : '—';
+    // The customer pays the price minus their seller-code discount; commission and profit follow what they pay.
+    const sale = price == null ? null : price * (100 - (n(deal.dataset.discount) ?? 0)) / 100;
+    if (out('pays')) out('pays').textContent = fmt(sale);
     const profit = sale == null ? null : sale - cost;
     const commission = !ref.value || sale == null ? 0 : Math.max(0, (deal.dataset.base === 'sale' ? sale : profit) * rate / 100);
     out('profit').textContent = fmt(profit);

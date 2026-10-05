@@ -1,29 +1,32 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex">
-<meta name="theme-color" content="#111111"><title>Request #3 · Dr Reps Dashboard</title>
+<meta name="theme-color" content="#f5f5f7"><title>Request #3 · Dr Reps Dashboard</title>
 <link rel="icon" href="/dr-reps-web-demo/brand/icon.png"><link rel="stylesheet" href="/dr-reps-web-demo/css/site.css"><link rel="stylesheet" href="/dr-reps-web-demo/css/dash.css">
-<script src="/dr-reps-web-demo/js/dash.js" type="module"></script><meta name="robots" content="noindex"><script>window.DEMO = { base: '/dr-reps-web-demo' }</script><script src="/dr-reps-web-demo/js/demo.js" defer></script></head>
+<script src="/dr-reps-web-demo/js/dash.js" type="module"></script><meta name="robots" content="noindex"><script>window.DEMO = { base: '/dr-reps-web-demo', sent: 11, code: 8 }</script><script src="/dr-reps-web-demo/js/demo.js" defer></script></head>
 <body class="dash">
+<header class="topbar"><a class="topbar-brand" href="/dr-reps-web-demo/admin" aria-label="Dr Reps Dashboard"><span class="wordmark"></span><small>Dashboard</small></a>
+  <a class="icon-btn" href="/dr-reps-web-demo/" target="_blank" rel="noopener" aria-label="View store"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></a>
+  <form method="post" action="/dr-reps-web-demo/admin/logout"><button class="icon-btn" aria-label="Log out"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg></button></form></header>
 <aside class="side">
   <a class="side-brand" href="/dr-reps-web-demo/admin"><span class="wordmark"></span><small>Dashboard</small></a>
-  <nav class="side-nav"><a href="/dr-reps-web-demo/admin" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg><span>Overview</span></a><a href="/dr-reps-web-demo/admin/requests" class="on" aria-current="page"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6l2-8Z"/></svg><span>Requests</span><em>3</em></a><a href="/dr-reps-web-demo/admin/customers" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg><span>Customers</span></a><a href="/dr-reps-web-demo/admin/products" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10"/></svg><span>Products</span></a><a href="/dr-reps-web-demo/admin/sellers" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg><span>Sellers</span></a><a href="/dr-reps-web-demo/admin/commissions" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg><span>Commissions</span></a><a href="/dr-reps-web-demo/admin/preview" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="13" height="10" rx="1.5"/><path d="M5 19h7M8.5 15v4"/><rect x="16" y="8" width="6" height="12" rx="1.5"/></svg><span>Preview</span></a><a href="/dr-reps-web-demo/admin/settings" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg><span>Settings</span></a></nav>
+  <nav class="side-nav"><a href="/dr-reps-web-demo/admin" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg><span>Overview</span></a><a href="/dr-reps-web-demo/admin/requests" class="on" aria-current="page"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6H3v-6l2-8Z"/></svg><span>Requests</span><em>5</em></a><a href="/dr-reps-web-demo/admin/customers" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg><span>Customers</span></a><a href="/dr-reps-web-demo/admin/products" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10"/></svg><span>Products</span></a><a href="/dr-reps-web-demo/admin/sellers" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg><span>Sellers</span></a><a href="/dr-reps-web-demo/admin/commissions" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg><span>Commissions</span></a><a href="/dr-reps-web-demo/admin/preview" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="13" height="10" rx="1.5"/><path d="M5 19h7M8.5 15v4"/><rect x="16" y="8" width="6" height="12" rx="1.5"/></svg><span>Preview</span></a><a href="/dr-reps-web-demo/admin/settings" class="" ><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg><span>Settings</span></a></nav>
   <div class="side-foot"><a href="/dr-reps-web-demo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span>View store</span></a>
     <form method="post" action="/dr-reps-web-demo/admin/logout"><button type="submit"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg><span>Log out</span></button></form></div>
 </aside>
 <main class="dash-main" id="main">
 <a class="back" href="/dr-reps-web-demo/admin/requests"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Requests</a>
-<header class="phead"><div><h1>Request #3 <span class="st st-won">Won</span></h1><p>21 Sept 2026 · from the website · closed 5 Oct 2026</p></div></header>
+<header class="phead"><div><h1>Request #3 <span class="st st-won">Won</span></h1><p>21 Sept 2026 · ordered from the customer’s account · closed 5 Oct 2026</p></div></header>
 <div class="detail">
   <div class="stack">
     <section class="card"><div class="card-head"><h2>Items</h2><span class="muted">1</span></div>
       <div class="items"><div class="item">
-        <span class="item-img"><img src="/dr-reps-web-demo/media/full/2026-10/96e610e68a148f094be1.webp" alt=""></span>
+        <span class="item-img"><img src="/dr-reps-web-demo/media/full/2026-10/a2c68879cf1386a09143.webp" alt=""></span>
         <span class="item-main"><b><a href="/dr-reps-web-demo/p/12-wireless-over-ear-headphones" target="_blank" rel="noopener">Wireless Over-Ear Headphones</a></b>
           <small>Qty 2</small></span></div></div>
       
     </section>
 
-    <form class="card form deal" method="post" action="/dr-reps-web-demo/admin/requests/3" data-deal data-base="profit" data-cur="EGP">
+    <form class="card form deal" method="post" action="/dr-reps-web-demo/admin/requests/3" data-deal data-base="profit" data-cur="EGP" data-discount="">
       <div class="card-head"><h2>Deal</h2></div>
       <div class="row3">
         <label class="field"><span>Status</span><select name="status"><option value="new" >New</option><option value="searching" >Searching</option><option value="quoted" >Quoted</option><option value="won" selected>Won</option><option value="lost" >Lost</option></select></label>
@@ -33,11 +36,15 @@
       </div>
       <label class="field"><span>Quote for the customer</span><textarea name="quote" rows="2" maxlength="2000" placeholder="e.g. Air Force 1 white, 40 pairs at 2,350 each, delivery in 5 days"></textarea></label>
       <div class="row3">
-        <label class="field"><span>Sale price (EGP)</span><input name="sale" inputmode="decimal" value="24000" placeholder="What the customer pays"></label>
+        <label class="field"><span>Price (EGP)</span><input name="sale" inputmode="decimal" value="24000" placeholder="Before any discount code"></label>
         <label class="field"><span>Supplier cost (EGP)</span><input name="cost" inputmode="decimal" value="19500" placeholder="What you pay"></label>
         <label class="field"><span>Supplier <small>(internal)</small></span><input name="supplier" maxlength="200" value=""></label>
       </div>
-      <div class="calc" data-calc><span>Profit <b data-profit>—</b></span><span>Seller commission <b data-commission>—</b></span><span>You keep <b data-keep>—</b></span></div>
+      <div class="calc" data-calc><span>Customer pays <b data-pays>—</b></span><span>Profit <b data-profit>—</b></span><span>Seller commission <b data-commission>—</b></span><span>You keep <b data-keep>—</b></span></div>
+      <div class="row2">
+        <label class="field"><span>Payment</span><select name="payment"><option value="unpaid" >Not paid</option><option value="paid" selected>Paid</option><option value="refunded" >Refunded</option></select></label>
+        <label class="field"><span>Delivery</span><select name="delivery"><option value="pending" >Not shipped yet</option><option value="preparing" >Preparing</option><option value="shipped" selected>On the way</option><option value="delivered" >Delivered</option></select></label>
+      </div>
       <label class="check"><input type="checkbox" name="paid" checked> Commission paid to the seller</label>
       <label class="field"><span>Add a note <small>(internal, goes to the timeline)</small></span><input name="note" maxlength="1000" placeholder="Called supplier, waiting for stock photo…"></label>
       <div class="actions-row"><button class="btn btn-primary">Save</button>
@@ -45,7 +52,7 @@
     </form>
 
     <section class="card"><div class="card-head"><h2>Timeline</h2></div>
-      <ol class="timeline"><li><span>Commission marked paid</span><small>just now</small></li><li><span>Deal: sale 24,000 EGP, cost 19,500 EGP</span><small>just now</small></li><li><span>Status: New → Won</span><small>just now</small></li><li><span>Received from the website (seller MONA)</span><small>just now</small></li></ol></section>
+      <ol class="timeline"><li><span>Delivery: Not shipped yet → On the way</span><small>just now</small></li><li><span>Payment: Not paid → Paid</span><small>just now</small></li><li><span>Commission marked paid</span><small>just now</small></li><li><span>Status: Quoted → Won</span><small>just now</small></li><li><span>Customer unlocked the price with their code</span><small>just now</small></li><li><span>Price code 2TJ-3HV created</span><small>just now</small></li><li><span>Deal: sale 24,000 EGP, cost 19,500 EGP</span><small>just now</small></li><li><span>Status: New → Quoted</span><small>just now</small></li><li><span>Ordered from the customer&#39;s account (seller MONA)</span><small>just now</small></li></ol></section>
   </div>
 
   <div class="stack">
@@ -53,9 +60,25 @@
       <p class="big">Nour Khaled</p><p class="muted">Alexandria · 1 request</p>
       <div class="contact">
         <a class="btn btn-primary" href="https://wa.me/201990000003?text=Hi%20Nour%2C%20it&#39;s%20Dr%20Reps%20about%20your%20request%20%233.%20Good%20news%3A%20we%20found%20it!" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.3L4 20Z"/></svg> WhatsApp</a>
-        <a class="btn btn-glass" href="tel:+20 199 000 0003"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg> +20 199 000 0003</a>
+        <a class="btn btn-glass" href="tel:+201990000003"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg> +201990000003</a>
         
       </div>
+    </section>
+    <section class="card code-card"><div class="card-head"><h2>Price code</h2><span class="st st-won">Unlocked just now</span></div>
+      <div class="code-big" data-copy-src>2TJ-3HV</div>
+        <p class="muted">The customer enters this code on their order page to see the price. Change the price and a new code is made.</p>
+        <div class="actions-row"><a class="btn btn-primary" href="https://wa.me/201990000003?text=Hi%20Nour%2C%20your%20Dr%20Reps%20price%20for%20order%20%233%20is%20ready.%0A%0AOpen%20your%20order%20and%20enter%20this%20code%20to%20see%20it%3A%202TJ-3HV%0Ahttp%3A%2F%2F127.0.0.1%3A14853%2Forders%2F3" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.3L4 20Z"/></svg> Send code on WhatsApp</a>
+          <button class="btn btn-glass" type="button" data-copy="Hi Nour, your Dr Reps price for order #3 is ready.
+
+Open your order and enter this code to see it: 2TJ-3HV
+https://mohamed3042.github.io/dr-reps-web-demo/orders/3"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> Copy message</button></div>
+      <dl class="facts">
+        <div><dt>Price</dt><dd>24,000 EGP</dd></div>
+        <div><dt>Discount code</dt><dd>—</dd></div>
+        <div><dt>Customer pays</dt><dd class="hl">24,000 EGP</dd></div>
+        <div><dt>Payment</dt><dd>Paid</dd></div>
+        <div><dt>Delivery</dt><dd>On the way</dd></div>
+      </dl>
     </section>
     
   </div>

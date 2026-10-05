@@ -5,7 +5,7 @@
   const term = (params.get('q') || '').toLowerCase().trim();
 
   const css = document.createElement('style');
-  css.textContent = '@media (max-width:640px){.demo-bar{font-size:11px!important;padding:7px 14px!important;bottom:10px!important}}@media (max-width:860px){body:has(.buy-bar) .demo-bar{bottom:78px!important}}.demo-bar{position:fixed;z-index:70;left:50%;bottom:16px;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);background:#c7a1ce;color:#111;font:600 13px/1.45 Tomorrow,system-ui,sans-serif;text-align:center;padding:9px 18px;border-radius:999px;box-shadow:0 12px 32px -8px rgba(0,0,0,.6)}' +
+  css.textContent = '@media (max-width:640px){.demo-bar{font-size:11px!important;padding:7px 14px!important;bottom:10px!important}}@media (max-width:860px){body:has(.buy-bar) .demo-bar{bottom:78px!important}}@media (max-width:900px){body.dash .demo-bar{bottom:calc(80px + env(safe-area-inset-bottom))!important}}.demo-bar{position:fixed;z-index:70;left:50%;bottom:16px;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);background:#c7a1ce;color:#111;font:600 13px/1.45 Tomorrow,system-ui,sans-serif;text-align:center;padding:9px 18px;border-radius:999px;box-shadow:0 12px 32px -8px rgba(0,0,0,.6)}' +
     '.demo-bar a{color:#111;text-decoration:underline}.demo-hidden{display:none!important}.demo-empty{padding:40px 0;text-align:center;color:#a1a1a6}';
   document.head.append(css);
 
@@ -23,12 +23,34 @@
     toast.timer = setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.hidden = true, 350); }, 3800);
   }
 
+  // The ordering flow is walked through pre-built snapshots: sign in → bag → WhatsApp → order page → price code.
+  const D = window.DEMO || {}, base = D.base || '';
+  const signedIn = (() => { try { return localStorage.demoIn === '1'; } catch { return false; } })();
+  const setIn = on => { try { if (on) localStorage.demoIn = '1'; else localStorage.removeItem('demoIn'); } catch {} };
+  const goTo = p => setTimeout(() => { location.href = base + p; }, 900);
+
   // Posts can't be saved on a static site. Search forms (GET) keep working.
   window.addEventListener('submit', e => {
     const f = e.target;
     if ((f.getAttribute('method') || 'get').toLowerCase() === 'get') return;
     e.preventDefault();
     e.stopImmediatePropagation();
+    const action = f.getAttribute('action') || '';
+    if (/\/account\/(login|signup)$/.test(action)) {
+      setIn(true);
+      const next = params.get('next') || '/account/';
+      toast('You’re signed in', 'Preview: you’re now Sara, the demo shopper.');
+      return goTo(next === '/bag' ? '/bag-signed-in' : next);
+    }
+    if (/\/account\/logout$/.test(action)) { setIn(false); return goTo('/'); }
+    if (f.matches('[data-wa-order]')) {
+      toast('Opening WhatsApp…', 'Preview: on the live store WhatsApp opens with the order filled in.');
+      return goTo(`/orders/${D.sent}-sent`);
+    }
+    if (action.endsWith(`/orders/${D.code}/code`)) {
+      toast('Code accepted', 'Preview: any code works here.');
+      return goTo(`/orders/${D.code}-unlocked`);
+    }
     if (f.matches('[data-add-to-bag]')) {
       const count = document.querySelector('[data-bag-count]');
       if (count) { count.textContent = (parseInt(count.textContent) || 0) + (parseInt(f.qty?.value) || 1); count.hidden = false; }
@@ -50,6 +72,15 @@
   const text = el => el.textContent.toLowerCase();
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Signed-in state lives in this browser only: the header link and the bag follow it.
+    const acct = document.querySelector('.acct-link');
+    if (acct && !document.querySelector('.acct-head, .order, [data-wa-order]')) {
+      acct.href = base + (signedIn ? '/account/' : '/account/login');
+      const label = acct.querySelector('span');
+      if (label) label.textContent = signedIn ? 'My orders' : 'Sign in';
+    }
+    if (signedIn && /\/bag\/?$/.test(location.pathname)) return location.replace(`${base}/bag-signed-in`);
+
     if (window.top === window) { // no banner inside the device preview frames
       const bar = document.createElement('div');
       bar.className = 'demo-bar';

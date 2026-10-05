@@ -9,7 +9,7 @@
 <script>document.documentElement.classList.add('js')</script>
 
 <script src="/dr-reps-web-demo/js/app.js" defer></script>
-<meta name="robots" content="noindex"><script>window.DEMO = { base: '/dr-reps-web-demo' }</script><script src="/dr-reps-web-demo/js/demo.js" defer></script></head><body class="store">
+<meta name="robots" content="noindex"><script>window.DEMO = { base: '/dr-reps-web-demo', sent: 11, code: 8 }</script><script src="/dr-reps-web-demo/js/demo.js" defer></script></head><body class="store">
 <a class="skip" href="#main">Skip to content</a>
 
 
@@ -17,7 +17,7 @@
   <div class="hdr-top wrap">
     <details class="hdr-menu"><summary aria-label="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
       <nav class="sheet" aria-label="Menu"><a href="/dr-reps-web-demo/shop?sort=new">New in</a><a href="/dr-reps-web-demo/shop?cat=Apparel">Apparel</a><a href="/dr-reps-web-demo/shop?cat=Accessories">Accessories</a><a href="/dr-reps-web-demo/shop?cat=Sneakers">Sneakers</a><a href="/dr-reps-web-demo/shop?cat=Outerwear">Outerwear</a><a href="/dr-reps-web-demo/shop?cat=Electronics">Electronics</a><a href="/dr-reps-web-demo/shop">All products</a>
-        <a href="/dr-reps-web-demo/request">Request anything</a><a href="/dr-reps-web-demo/#how">How it works</a><a href="/dr-reps-web-demo/sellers">Become a seller</a><a href="/dr-reps-web-demo/seller">Seller login</a></nav></details>
+        <a href="/dr-reps-web-demo/account">Sign in</a><a href="/dr-reps-web-demo/request">Request anything</a><a href="/dr-reps-web-demo/#how">How it works</a><a href="/dr-reps-web-demo/sellers">Become a seller</a><a href="/dr-reps-web-demo/seller">Seller login</a></nav></details>
     <a class="hdr-logo" href="/dr-reps-web-demo/" aria-label="Dr Reps home"><span class="wordmark"></span></a>
     <form class="hdr-search" action="/dr-reps-web-demo/shop" method="get" role="search">
       <input type="search" name="q" value="" placeholder="Search for items or categories" aria-label="Search products">
@@ -25,7 +25,7 @@
     </form>
     <nav class="hdr-tools" aria-label="Account">
       <a class="hide-sm" href="/dr-reps-web-demo/request"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg><span>Request anything</span></a>
-      <a class="hide-sm" href="/dr-reps-web-demo/seller"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg><span>Seller login</span></a>
+      <a class="acct-link" href="/dr-reps-web-demo/account" aria-label="Sign in"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="hide-sm">Sign in</span></a>
       <a class="bag-link" href="/dr-reps-web-demo/bag" aria-label="Request bag"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="hide-sm">Bag</span><span class="n" data-bag-count hidden>0</span></a>
     </nav>
   </div>
@@ -39,39 +39,25 @@
 <div class="wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/dr-reps-web-demo/">Home</a><span>›</span>Request anything</nav>
 <section class="page-top"><h1 class="display">Request anything</h1><p class="lead">Tell us the brand, model, size and quantity. If it exists as deadstock or surplus, we'll find it.</p></section>
-<section class="narrow-form"><form class="form send-form" method="post" action="/dr-reps-web-demo/request">
-  <input type="hidden" name="mode" value="custom">
-  <label class="field"><span>What are you looking for?</span><textarea name="want" rows="3" required maxlength="500" placeholder="e.g. 40 pairs of white leather low-tops, sizes 40–45"></textarea></label>
-  <label class="field"><span>Quantity <small>(optional)</small></span><input name="qty" maxlength="40" placeholder="e.g. 40 pairs"></label>
-  
-  <div class="row2">
-    <label class="field"><span>Your name</span><input name="name" required maxlength="100" autocomplete="name"></label>
-    <label class="field"><span>WhatsApp / phone</span><input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+20 100 123 4567"></label>
-  </div>
-  <div class="row2">
-    <label class="field"><span>Email <small>(optional)</small></span><input name="email" type="email" maxlength="120" autocomplete="email"></label>
-    <label class="field"><span>City <small>(optional)</small></span><input name="city" maxlength="80" autocomplete="address-level2"></label>
-  </div>
-  <label class="field"><span>Anything else? <small>(optional)</small></span><textarea name="notes" rows="3" maxlength="2000" placeholder="Delivery city, deadline, budget, alternatives you'd accept"></textarea></label>
-  <label class="field"><span>Seller code <small>(optional)</small></span><input name="ref" value="" maxlength="20" class="upper" autocomplete="off"></label>
-  <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-  
-  <button class="btn wide">Send request</button>
-  <p class="fine">Free and no commitment. We'll message you with what we find.</p>
-</form></section>
+<section class="narrow-form"><div class="send-form">
+  <h2>Sign in to order</h2>
+  <p class="muted">Create a free account or sign in. Then send your order on WhatsApp in one tap and follow its price, payment and delivery here.</p>
+  <a class="btn wide" href="/dr-reps-web-demo/account/login?next=%2Frequest">Sign in</a>
+  <a class="btn btn-line wide" href="/dr-reps-web-demo/account/signup?next=%2Frequest">Create account</a>
+</div></section>
 </div></main>
 <footer class="foot">
   <div class="wrap foot-cols">
     <div class="foot-brand"><a href="/dr-reps-web-demo/" aria-label="Dr Reps"><span class="wordmark"></span></a><p class="tag">Drip stays.. Worry leaves..</p>
       <p>Deadstock and discounted stock from partner companies. Every price is quoted to you personally, on request.</p></div>
     <div><h4>Shop</h4><a href="/dr-reps-web-demo/shop?sort=new">New in</a><a href="/dr-reps-web-demo/shop?cat=Apparel">Apparel</a><a href="/dr-reps-web-demo/shop?cat=Accessories">Accessories</a><a href="/dr-reps-web-demo/shop?cat=Sneakers">Sneakers</a><a href="/dr-reps-web-demo/shop?cat=Outerwear">Outerwear</a><a href="/dr-reps-web-demo/shop?cat=Electronics">Electronics</a><a href="/dr-reps-web-demo/shop">All products</a></div>
-    <div><h4>Help</h4><a href="/dr-reps-web-demo/#how">How it works</a><a href="/dr-reps-web-demo/#faq">FAQ</a><a href="/dr-reps-web-demo/request">Request anything</a><a href="/dr-reps-web-demo/bag">Request bag</a></div>
+    <div><h4>Help</h4><a href="/dr-reps-web-demo/#how">How it works</a><a href="/dr-reps-web-demo/#faq">FAQ</a><a href="/dr-reps-web-demo/request">Request anything</a><a href="/dr-reps-web-demo/bag">Bag</a><a href="/dr-reps-web-demo/account">My orders</a></div>
     <div><h4>Sellers</h4><a href="/dr-reps-web-demo/sellers">Become a seller</a><a href="/dr-reps-web-demo/seller">Seller login</a></div>
-    <div><h4>Contact</h4>
+    <div><h4>Contact</h4><a href="https://wa.me/201990000000?text=Hi!" rel="noopener">WhatsApp</a>
       <a href="https://instagram.com/yourfavouriteshoeplug" rel="noopener">Instagram</a></div>
   </div>
   <div class="wrap foot-bar"><span>© 2026 Dr Reps. All rights reserved.</span><span>No online payments: we quote first, you decide.</span></div>
 </footer>
-
+<a class="wa-float" href="https://wa.me/201990000000?text=Hi%20Dr%20Reps!" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.3L4 20Z"/></svg></a>
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
 </body></html>

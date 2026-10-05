@@ -62,6 +62,27 @@ document.addEventListener('click', e => {
 document.querySelectorAll('.sheet a').forEach(a => a.addEventListener('click', () => a.closest('details').open = false));
 document.addEventListener('click', e => document.querySelectorAll('.qa-sizes[open]').forEach(d => d.contains(e.target) || d.removeAttribute('open')));
 
+// One tap orders: create the order, open WhatsApp with it filled in, and move this tab to the order page.
+// The WhatsApp window is opened during the tap itself, so popup blockers let it through.
+document.addEventListener('submit', async e => {
+  const f = e.target;
+  if (!f.matches('[data-wa-order]')) return;
+  e.preventDefault();
+  const win = window.open('', '_blank'), btn = f.querySelector('button:not([type=button])');
+  if (btn) btn.disabled = true;
+  try {
+    const r = await fetch(f.action, { method: 'POST', body: new FormData(f), headers: { accept: 'application/json' } });
+    const d = await r.json();
+    if (d.login) { win?.close(); location.href = d.login; return; }
+    if (!r.ok) throw new Error(d.error || 'Your order could not be sent.');
+    if (win && d.wa) { win.location.href = d.wa; location.href = d.url; } else { win?.close(); location.href = `${d.url}?sent=1`; }
+  } catch (err) {
+    win?.close();
+    if (btn) btn.disabled = false;
+    toast({ title: 'Not sent', sub: err.message, error: true });
+  }
+});
+
 // Add to bag without leaving the page (quick add on tiles, and the product page form).
 const toastEl = document.querySelector('[data-toast]');
 let toastTimer;
