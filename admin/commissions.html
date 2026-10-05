@@ -16,26 +16,26 @@
 <main class="dash-main" id="main">
 <header class="phead"><div><h1>Commissions</h1><p>10% default · calculated on the profit (sale minus supplier cost) of won deals.</p></div></header>
 <section class="seller-cards"><div class="card sc">
-  <div class="who"><span class="av sm">A</span><b>Ahmed Hassan</b><code>AHMED01</code></div>
-  <dl><div><dt>Earned</dt><dd>508.5 EGP</dd></div><div><dt>Paid</dt><dd>0 EGP</dd></div><div><dt>Owed</dt><dd class="hl">508.5 EGP</dd></div></dl>
-  <form method="post" action="/dr-reps-web-demo/admin/commissions/paid" data-confirm="Mark everything owed to Ahmed Hassan as paid?"><input type="hidden" name="seller" value="AHMED01"><button class="btn btn-glass btn-sm"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg> Mark all paid</button></form>
-</div><div class="card sc">
   <div class="who"><span class="av sm">M</span><b>Mona Adel</b><code>MONA</code></div>
   <dl><div><dt>Earned</dt><dd>540 EGP</dd></div><div><dt>Paid</dt><dd>540 EGP</dd></div><div><dt>Owed</dt><dd class="hl">0 EGP</dd></div></dl>
   
+</div><div class="card sc">
+  <div class="who"><span class="av sm">A</span><b>Ahmed Hassan</b><code>AHMED01</code></div>
+  <dl><div><dt>Earned</dt><dd>508.5 EGP</dd></div><div><dt>Paid</dt><dd>0 EGP</dd></div><div><dt>Owed</dt><dd class="hl">508.5 EGP</dd></div></dl>
+  <form method="post" action="/dr-reps-web-demo/admin/commissions/paid" data-confirm="Mark everything owed to Ahmed Hassan as paid?"><input type="hidden" name="seller" value="AHMED01"><button class="btn btn-glass btn-sm"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg> Mark all paid</button></form>
 </div></section>
 <div class="toolbar"><nav class="tabs"><a class="tab " href="?">Unpaid</a><a class="tab on" href="?show=all">All won deals</a></nav></div>
 <div class="card flush"><div class="table-wrap"><table class="table">
   <thead><tr><th>Deal</th><th>Seller</th><th class="num">Sale</th><th class="num">Profit</th><th class="num">Rate</th><th class="num">Commission</th><th></th></tr></thead>
-  <tbody><tr><td><a class="cell-link" href="/dr-reps-web-demo/admin/requests/1"><b>#1 Omar Ali</b><small>5 Oct 2026</small></a></td>
-    <td>Ahmed Hassan</td><td class="num">17,575 EGP<small class="muted"> −5%</small></td><td class="num">3,375 EGP</td>
-    <td class="num">10%</td><td class="num"><b>337.5 EGP</b></td>
-    <td class="row-actions"><form method="post" action="/dr-reps-web-demo/admin/commissions/paid"><input type="hidden" name="id" value="1"><button class="btn btn-glass btn-sm">Mark paid</button></form></td></tr><tr><td><a class="cell-link" href="/dr-reps-web-demo/admin/requests/3"><b>#3 Nour Khaled</b><small>5 Oct 2026</small></a></td>
+  <tbody><tr><td><a class="cell-link" href="/dr-reps-web-demo/admin/requests/3"><b>#3 Nour Khaled</b><small>5 Oct 2026</small></a></td>
     <td>Mona Adel</td><td class="num">24,000 EGP</td><td class="num">4,500 EGP</td>
     <td class="num">12%</td><td class="num"><b>540 EGP</b></td>
     <td class="row-actions"><form method="post" action="/dr-reps-web-demo/admin/commissions/paid"><input type="hidden" name="id" value="3"><input type="hidden" name="unpaid" value="1"><button class="link">Undo paid</button></form></td></tr><tr><td><a class="cell-link" href="/dr-reps-web-demo/admin/requests/7"><b>#7 Sara Ahmed</b><small>5 Oct 2026</small></a></td>
     <td>Ahmed Hassan</td><td class="num">9,310 EGP<small class="muted"> −5%</small></td><td class="num">1,710 EGP</td>
     <td class="num">10%</td><td class="num"><b>171 EGP</b></td>
-    <td class="row-actions"><form method="post" action="/dr-reps-web-demo/admin/commissions/paid"><input type="hidden" name="id" value="7"><button class="btn btn-glass btn-sm">Mark paid</button></form></td></tr></tbody></table></div></div></main>
+    <td class="row-actions"><form method="post" action="/dr-reps-web-demo/admin/commissions/paid"><input type="hidden" name="id" value="7"><button class="btn btn-glass btn-sm">Mark paid</button></form></td></tr><tr><td><a class="cell-link" href="/dr-reps-web-demo/admin/requests/1"><b>#1 Omar Ali</b><small>5 Oct 2026</small></a></td>
+    <td>Ahmed Hassan</td><td class="num">17,575 EGP<small class="muted"> −5%</small></td><td class="num">3,375 EGP</td>
+    <td class="num">10%</td><td class="num"><b>337.5 EGP</b></td>
+    <td class="row-actions"><form method="post" action="/dr-reps-web-demo/admin/commissions/paid"><input type="hidden" name="id" value="1"><button class="btn btn-glass btn-sm">Mark paid</button></form></td></tr></tbody></table></div></div></main>
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>
 </body></html>

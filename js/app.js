@@ -62,6 +62,41 @@ document.addEventListener('click', e => {
 document.querySelectorAll('.sheet a').forEach(a => a.addEventListener('click', () => a.closest('details').open = false));
 document.addEventListener('click', e => document.querySelectorAll('.qa-sizes[open]').forEach(d => d.contains(e.target) || d.removeAttribute('open')));
 
+// "Request anything" reference photo: shrunk in the browser (max 1600px, WebP) and uploaded on its own,
+// so the request stays one small form post. Without JavaScript the photo box simply stays hidden.
+for (const box of document.querySelectorAll('[data-rq-photo]')) {
+  box.hidden = false;
+  const file = box.querySelector('[data-rq-photo-file]'), value = box.querySelector('[data-rq-photo-value]');
+  const view = box.querySelector('[data-rq-photo-view]'), clearBtn = box.querySelector('[data-rq-photo-clear]');
+  const emptyView = [...view.childNodes];
+  file.addEventListener('change', async () => {
+    const picked = file.files[0];
+    if (!picked) return;
+    box.classList.add('busy');
+    try {
+      const bitmap = await createImageBitmap(picked);
+      const k = Math.min(1, 1600 / Math.max(bitmap.width, bitmap.height));
+      const canvas = Object.assign(document.createElement('canvas'), { width: Math.round(bitmap.width * k), height: Math.round(bitmap.height * k) });
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise(done => canvas.toBlob(done, 'image/webp', 0.85));
+      const body = new FormData();
+      body.append('file', blob, 'reference.webp');
+      const r = await fetch(file.dataset.endpoint, { method: 'POST', body, headers: { accept: 'application/json' } });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'The photo could not be uploaded.');
+      value.value = d.url;
+      view.replaceChildren(Object.assign(new Image(), { src: URL.createObjectURL(blob), alt: 'Your reference photo' }));
+      clearBtn.hidden = false;
+    } catch (err) {
+      file.value = '';
+      toast({ title: 'Photo not added', sub: err.message, error: true });
+    } finally {
+      box.classList.remove('busy');
+    }
+  });
+  clearBtn.addEventListener('click', () => { value.value = ''; file.value = ''; view.replaceChildren(...emptyView); clearBtn.hidden = true; });
+}
+
 // One tap orders: create the order, open WhatsApp with it filled in, and move this tab to the order page.
 // The WhatsApp window is opened during the tap itself, so popup blockers let it through.
 document.addEventListener('submit', async e => {

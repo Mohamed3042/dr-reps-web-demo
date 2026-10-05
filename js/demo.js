@@ -40,7 +40,7 @@
       setIn(true);
       const next = params.get('next') || '/account/';
       toast('You’re signed in', 'Preview: you’re now Sara, the demo shopper.');
-      return goTo(next === '/bag' ? '/bag-signed-in' : next);
+      return goTo(next === '/bag' ? '/bag-signed-in' : next === '/request' ? '/request-signed-in' : next);
     }
     if (/\/account\/logout$/.test(action)) { setIn(false); return goTo('/'); }
     if (f.matches('[data-wa-order]')) {
@@ -63,7 +63,7 @@
   const realFetch = window.fetch.bind(window);
   window.fetch = async (input, init = {}) => {
     const url = String(input?.url || input);
-    if (/\/(admin|seller)\/media$/.test(url) && init.body instanceof FormData)
+    if (/\/(admin|seller|account)\/media$/.test(url) && init.body instanceof FormData)
       return new Response(JSON.stringify({ url: URL.createObjectURL(init.body.get('file')) }), { headers: { 'content-type': 'application/json' } });
     return realFetch(input, init);
   };
@@ -80,6 +80,7 @@
       if (label) label.textContent = signedIn ? 'My orders' : 'Sign in';
     }
     if (signedIn && /\/bag\/?$/.test(location.pathname)) return location.replace(`${base}/bag-signed-in`);
+    if (signedIn && /\/request\/?$/.test(location.pathname)) return location.replace(`${base}/request-signed-in`);
 
     if (window.top === window) { // no banner inside the device preview frames
       const bar = document.createElement('div');
