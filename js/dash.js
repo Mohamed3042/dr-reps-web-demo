@@ -156,3 +156,9 @@ if (pv) {
 
 const studio = document.querySelector('[data-studio]');
 if (studio) import('/dr-reps-web-demo/js/studio.js').then(m => m.init(studio, { toast, uploadBlob, toBlob }));
+
+// Open the selected walkthrough topic before scrolling to it.
+document.addEventListener('click', e => {
+ const link=e.target.closest('.guide-index a');
+ if(link){const topic=document.getElementById(link.hash.slice(1));if(topic?.tagName==='DETAILS')topic.open=true;}
+});

@@ -106,7 +106,7 @@ document.addEventListener('submit', async e => {
   const win = window.open('', '_blank'), btn = f.querySelector('button:not([type=button])');
   if (btn) btn.disabled = true;
   try {
-    const r = await fetch(f.action, { method: 'POST', body: new FormData(f), headers: { accept: 'application/json' } });
+    const r = await fetch(f.getAttribute('action') || location.href, { method: 'POST', body: new FormData(f), headers: { accept: 'application/json' } });
     const d = await r.json();
     if (d.login) { win?.close(); location.href = d.login; return; }
     if (!r.ok) throw new Error(d.error || 'Your order could not be sent.');
@@ -141,7 +141,7 @@ document.addEventListener('submit', async e => {
   const body = new FormData(f, e.submitter);
   f.querySelectorAll('button').forEach(b => b.disabled = true);
   try {
-    const r = await fetch(f.action, { method: 'POST', body, headers: { accept: 'application/json' } });
+    const r = await fetch(f.getAttribute('action') || location.href, { method: 'POST', body, headers: { accept: 'application/json' } });
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || 'Could not add that item.');
     const count = document.querySelector('[data-bag-count]');
@@ -155,4 +155,10 @@ document.addEventListener('submit', async e => {
   } finally {
     f.querySelectorAll('button').forEach(b => b.disabled = false);
   }
+});
+
+// Open the selected walkthrough topic before scrolling to it.
+document.addEventListener('click', e => {
+ const link=e.target.closest('.guide-index a');
+ if(link){const topic=document.getElementById(link.hash.slice(1));if(topic?.tagName==='DETAILS')topic.open=true;}
 });
