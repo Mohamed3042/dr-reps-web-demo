@@ -23,20 +23,20 @@
         <span class="item-img"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 7 9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10"/></svg></span>
         <span class="item-main"><b>Black leather Chelsea boots, 20 pairs, sizes 40 to 45</b>
           <small></small></span></div></div>
-      
+
     </section>
 
     <form class="card form deal" method="post" action="/dr-reps-web-demo/admin/requests/12" data-deal data-base="profit" data-cur="EGP" data-discount="">
       <div class="card-head"><h2>Deal</h2></div>
       <div class="row3">
-        <label class="field"><span>Status</span><select name="status"><option value="new" selected>New</option><option value="searching" >Searching</option><option value="quoted" >Quoted</option><option value="won" >Won</option><option value="lost" >Lost</option></select></label>
+        <label class="field"><span>Status</span><select name="status"><option value="new" selected>New</option><option value="searching" >Searching</option><option value="quoted" >Quoted</option><option value="won" >Won</option><option value="lost" >Lost</option><option value="refunded" >Refunded</option></select></label>
         <label class="field"><span>Seller</span><select name="ref"><option value="">No seller</option><option value="AHMED01" selected data-rate="">Ahmed Hassan (AHMED01)</option><option value="MONA"  data-rate="12">Mona Adel (MONA)</option>
           </select></label>
         <label class="field"><span>Commission %</span><input name="rate" inputmode="decimal" value="" placeholder="10" data-default-rate="10"></label>
       </div>
       <label class="field"><span>Quote for the customer</span><textarea name="quote" rows="2" maxlength="2000" placeholder="e.g. Air Force 1 white, 40 pairs at 2,350 each, delivery in 5 days"></textarea></label>
       <div class="row3">
-        <label class="field"><span>Price (EGP)</span><input name="sale" inputmode="decimal" value="" placeholder="Before any discount code"></label>
+        <label class="field"><span>Price (EGP)</span><input name="sale" inputmode="decimal" value="" placeholder="Before any discount code" ></label>
         <label class="field"><span>Supplier cost (EGP)</span><input name="cost" inputmode="decimal" value="" placeholder="What you pay"></label>
         <label class="field"><span>Supplier <small>(internal)</small></span><input name="supplier" maxlength="200" value=""></label>
       </div>
@@ -45,6 +45,7 @@
         <label class="field"><span>Payment</span><select name="payment"><option value="unpaid" selected>Not paid</option><option value="paid" >Paid</option><option value="refunded" >Refunded</option></select></label>
         <label class="field"><span>Delivery</span><select name="delivery"><option value="pending" selected>Not shipped yet</option><option value="preparing" >Preparing</option><option value="shipped" >On the way</option><option value="delivered" >Delivered</option></select></label>
       </div>
+
       <label class="check"><input type="checkbox" name="paid" > Commission paid to the seller</label>
       <label class="field"><span>Add a note <small>(internal, goes to the timeline)</small></span><input name="note" maxlength="1000" placeholder="Called supplier, waiting for stock photo…"></label>
       <div class="actions-row"><button class="btn btn-primary">Save</button>
@@ -61,7 +62,7 @@
       <div class="contact">
         <a class="btn btn-primary" href="https://wa.me/201990000007?text=Hi%20Hassan%2C%20it&#39;s%20Dr%20Reps%20about%20your%20request%20%2312.%20Good%20news%3A%20we%20found%20it!" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.3L4 20Z"/></svg> WhatsApp</a>
         <a class="btn btn-glass" href="tel:+20 199 000 0007"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg> +20 199 000 0007</a>
-        
+
       </div>
     </section>
     <section class="card code-card"><div class="card-head"><h2>Price code</h2></div>
@@ -74,7 +75,7 @@
         <div><dt>Delivery</dt><dd>Not shipped yet</dd></div>
       </dl>
     </section>
-    
+
   </div>
 </div></main>
 <div class="toast" data-toast role="status" aria-live="polite" hidden></div>

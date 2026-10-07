@@ -122,6 +122,7 @@ a.row:hover{background:#fafafb}
 .st-quoted{background:#fff4e5;color:#b25e00}
 .st-won{background:#e7f8ee;color:#0f7a3c}
 .st-lost{background:#f2f2f4;color:var(--text-3)}
+.st-refunded{background:#f4eaf7;color:#6c2580}
 .chip-sm{display:inline-block;font-size:12px;font-weight:500;font-style:normal;padding:2px 9px;border-radius:999px;background:#f2f2f4;color:var(--text-2);white-space:nowrap}
 .chip-sm.ok{background:#e7f8ee;color:#0f7a3c}
 .empty-line{padding:36px 24px;text-align:center;color:var(--text-2);margin:0}

@@ -36,20 +36,20 @@
 <div class="trust"><span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/></svg> Verified partner stock</span><span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 15v2c0 1.7 2.7 3 6 3s6-1.3 6-3v-5c0-1.7-2.7-3-6-3"/></svg> Best price, quoted to you</span><span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.3L4 20Z"/></svg> Reply on WhatsApp</span></div>
 <main id="main">
 <section class="wrap auth">
-  
+
   <div class="auth-card">
     <nav class="auth-tabs" aria-label="Account"><a class="" href="/dr-reps-web-demo/account/login?next=%2Faccount">Sign in</a><a class="on" href="/dr-reps-web-demo/account/signup?next=%2Faccount">Create account</a></nav>
     <h1>Create your account</h1>
     <p class="muted">One free account for all your orders. We send prices to your WhatsApp number.</p>
-    
+
     <form class="form" method="post" action="/dr-reps-web-demo/account/signup">
       <input type="hidden" name="next" value="/dr-reps-web-demo/account">
       <label class="field"><span>Full name</span><input name="name" required maxlength="100" autocomplete="name" value=""></label>
-      <label class="field"><span>WhatsApp number</span><input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+20 100 123 4567" value=""></label>
+      <label class="field"><span>WhatsApp number with country code</span><input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+965 9002 2904" value=""></label>
       <label class="field"><span>Email <small>(optional)</small></span><input name="email" type="email" maxlength="120" autocomplete="email" value=""></label>
       <label class="field"><span>Password</span><input name="password" type="password" required minlength="8" autocomplete="new-password"></label>
       <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        
+
       <button class="btn wide">Create account</button>
     </form>
     <p class="fine">Already have an account? <a href="/dr-reps-web-demo/account/login?next=%2Faccount">Sign in</a>.</p>
